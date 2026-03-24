@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
+import { useNavigate } from "react-router-dom";
 
-Modal.setAppElement("#root"); // important for accessibility
+Modal.setAppElement("#root"); // important
 
 function Projects() {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
+
+  const navigate = useNavigate(); // 👈 navigation
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/projects")
@@ -15,8 +18,9 @@ function Projects() {
   }, []);
 
   return (
-      <section id="projects" className="projects visible">
+    <section id="projects" className="projects visible">
       <h2>My Projects</h2>
+
       <div className="projects-grid">
         {projects.map((project) => (
           <div
@@ -40,17 +44,56 @@ function Projects() {
           overlayClassName="modal-overlay"
         >
           <h2>{selectedProject.title}</h2>
+
           <p>{selectedProject.description}</p>
+
           {selectedProject.technologies && (
-            <p><strong>Technologies:</strong> {selectedProject.technologies}</p>
+            <p>
+              <strong>Technologies:</strong>{" "}
+              {selectedProject.technologies}
+            </p>
           )}
+
+          <br />
+
+          {/* Links */}
           {selectedProject.github && (
-            <a href={selectedProject.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a
+              href={selectedProject.github}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              🔗 GitHub
+            </a>
           )}
+
+          <br />
+
           {selectedProject.live && (
-            <a href={selectedProject.live} target="_blank" rel="noopener noreferrer">Live Demo</a>
+            <a
+              href={selectedProject.live}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              🚀 Live Demo
+            </a>
           )}
-          <button onClick={() => setSelectedProject(null)}>Close</button>
+
+          <br /><br />
+
+          {/* Buttons */}
+          <button onClick={() => setSelectedProject(null)}>
+            Close
+          </button>
+
+          <button
+            onClick={() =>
+              navigate(`/project/${selectedProject.id}`)
+            }
+            style={{ marginLeft: "10px" }}
+          >
+            View Full Details
+          </button>
         </Modal>
       )}
     </section>
@@ -58,3 +101,4 @@ function Projects() {
 }
 
 export default Projects;
+

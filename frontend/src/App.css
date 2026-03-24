@@ -62,14 +62,15 @@ section.visible {
 
 /* ===== Hero ===== */
 .hero {
-  padding: 50px 20px;
+  padding: 80px 20px;
   background: #282c34;
   color: #fff;
-  animation: fadeIn 1s ease-in;
-}
 
-.hero p {
-  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;   /* 🔥 horizontal center */
+  text-align: center;    /* 🔥 text center */
 }
 
 /* ===== About ===== */
@@ -352,4 +353,86 @@ section.visible {
   background: #1e1e2f;
   color: #fff;
   transform: scale(1.05);
+}
+/* Container */
+.project-details-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+}
+
+/* Card */
+.project-details-card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 700px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Title */
+.project-details-card h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Description */
+.project-desc {
+  margin: 15px 0;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* List (Features) */
+.project-details-card ul {
+  margin: 10px 0 20px 20px;
+  line-height: 1.6;
+}
+
+/* Buttons container */
+.project-buttons {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Button base */
+.btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* GitHub button */
+.github {
+  background: #333;
+  color: #fff;
+}
+
+.github:hover {
+  background: #000;
+}
+
+/* Live button */
+.live {
+  background: #61dbfb;
+  color: #000;
+}
+
+.live:hover {
+  background: #21a1f1;
+}
+.close {
+  margin-top: 20px;
+  background: crimson;
+  color: #fff;
+}
+
+.close:hover {
+  background: darkred;
 }
