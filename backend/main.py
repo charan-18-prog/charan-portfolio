@@ -3,6 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import mysql.connector
 
+# ✅ Email imports
+from fastapi_mail import FastMail, MessageSchema
+from mail_config import conf
+
 app = FastAPI()
 
 # ✅ CORS (React ki permission)
@@ -22,7 +26,7 @@ conn = mysql.connector.connect(
     database="portfolio"
 )
 
-cursor = conn.cursor(dictionary=True)  # 👈 important change
+cursor = conn.cursor(dictionary=True)
 
 # ---------- Model ----------
 class Contact(BaseModel):
@@ -30,34 +34,53 @@ class Contact(BaseModel):
     email: str
     message: str
 
+
 # ---------- Routes ----------
 
 @app.get("/")
 def home():
     return {"message": "Hello Charan"}
 
+
 @app.get("/projects")
 def get_projects():
     cursor.execute("SELECT * FROM projects")
     return cursor.fetchall()
 
-# 👉 Save contact
+
+# 👉 Save contact + Send Email
 @app.post("/contact")
-def save_contact(contact: Contact):
+async def save_contact(contact: Contact):
     print("Received data:")
     print(contact.name, contact.email, contact.message)
 
+    # ✅ Save to DB
     query = "INSERT INTO contacts (name, email, message) VALUES (%s, %s, %s)"
     values = (contact.name, contact.email, contact.message)
 
     cursor.execute(query, values)
     conn.commit()
 
-    return {"message": "Contact saved successfully"}
+    # ✅ Send Email
+    message = MessageSchema(
+        subject="New Contact Form Submission",
+        recipients=["muraricharan2@gmail.com"],  # 👉 nee email pettu
+        body=f"""
+Name: {contact.name}
+Email: {contact.email}
+Message: {contact.message}
+        """,
+        subtype="plain"
+    )
 
-# 👉 NEW: Get all contacts (VERY IMPORTANT)
+    fm = FastMail(conf)
+    await fm.send_message(message)
+
+    return {"message": "Contact saved & Email sent successfully ✅"}
+
+
+# 👉 Get all contacts
 @app.get("/contacts")
 def get_contacts():
     cursor.execute("SELECT * FROM contacts")
-    result = cursor.fetchall()
-    return result
+    return cursor.fetchall()
