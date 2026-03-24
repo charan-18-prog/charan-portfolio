@@ -11,9 +11,12 @@ function Projects() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://portfolio-backend-3lp6.onrender.com/projects")   // ✅ correct API
+    fetch("https://portfolio-backend-3lp6.onrender.com/projects")
       .then((res) => res.json())
-      .then((data) => setProjects(data))
+      .then((data) => {
+        console.log("Projects data:", data);   // 🔥 debug line
+        setProjects(data);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -30,7 +33,13 @@ function Projects() {
               onClick={() => setSelectedProject(project)}
             >
               <h3>{project.title}</h3>
-              <p>{project.description.substring(0, 60)}...</p>
+
+              <p>
+                {project.description
+                  ? project.description.substring(0, 60)
+                  : "Project description"}
+                ...
+              </p>
             </div>
           ))}
       </div>
@@ -39,7 +48,6 @@ function Projects() {
         <Modal
           isOpen={true}
           onRequestClose={() => setSelectedProject(null)}
-          contentLabel="Project Details"
           className="modal"
           overlayClassName="modal-overlay"
         >
@@ -47,46 +55,7 @@ function Projects() {
 
           <p>{selectedProject.description}</p>
 
-          {selectedProject.technologies && (
-            <p>
-              <strong>Technologies:</strong> {selectedProject.technologies}
-            </p>
-          )}
-
-          <br />
-
-          {selectedProject.github && (
-            <a
-              href={selectedProject.github}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              🔗 GitHub
-            </a>
-          )}
-
-          <br />
-
-          {selectedProject.live && (
-            <a
-              href={selectedProject.live}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              🚀 Live Demo
-            </a>
-          )}
-
-          <br /><br />
-
           <button onClick={() => setSelectedProject(null)}>Close</button>
-
-          <button
-            onClick={() => navigate(`/project/${selectedProject.id}`)}
-            style={{ marginLeft: "10px" }}
-          >
-            View Full Details
-          </button>
         </Modal>
       )}
     </section>
