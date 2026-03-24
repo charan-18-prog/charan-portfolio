@@ -19,14 +19,14 @@ app.add_middleware(
 )
 
 # ✅ MySQL connection
-conn = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Muraricharan@3208",
-    database="portfolio"
-)
-
-cursor = conn.cursor(dictionary=True)
+#conn = mysql.connector.connect(
+#    host="localhost",
+#    user="root",
+#    password="Muraricharan@3208",
+#    database="portfolio"
+#)
+#
+#cursor = conn.cursor(dictionary=True)
 
 # ---------- Model ----------
 class Contact(BaseModel):
