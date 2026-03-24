@@ -13,28 +13,30 @@ function Contact() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ✅ UPDATED SUBMIT FUNCTION
+  // ✅ UPDATED SUBMIT FUNCTION (live backend URL)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/contact", {
-        method: "POST", // 👉 same route (DB + email both)
+      const res = await fetch("https://charan-portfolio-backend.onrender.com/contact", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(form),
       });
 
-      const result = await res.json();
-
-      setSuccess("Message sent successfully ✅");
-      setForm({ name: "", email: "", message: "" });
+      if (res.ok) {
+        setSuccess("Message sent successfully ✅");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        setSuccess("Error sending message ❌");
+      }
 
       setTimeout(() => setSuccess(null), 3000);
     } catch (error) {
       console.error(error);
-      setSuccess("Error sending message ❌");
+      setSuccess("Server error ❌");
     }
   };
 
