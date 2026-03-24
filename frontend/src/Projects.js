@@ -11,7 +11,7 @@ function Projects() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://charan-portfolio-backend.onrender.com/projects")   // ✅ FIXED URL
+    fetch("https://portfolio-backend-3lp6.onrender.com")   // ✅ FIXED URL
       .then((res) => res.json())
       .then((data) => setProjects(data))
       .catch((err) => console.log(err));
