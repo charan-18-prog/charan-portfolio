@@ -1,11 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import mysql.connector
-
-# ✅ Email imports
-from fastapi_mail import FastMail, MessageSchema
-from mail_config import conf
 
 app = FastAPI()
 
@@ -17,16 +12,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# ✅ MySQL connection
-#conn = mysql.connector.connect(
-#    host="localhost",
-#    user="root",
-#    password="Muraricharan@3208",
-#    database="portfolio"
-#)
-#
-#cursor = conn.cursor(dictionary=True)
 
 # ---------- Model ----------
 class Contact(BaseModel):
@@ -42,45 +27,31 @@ def home():
     return {"message": "Hello Charan"}
 
 
+# ✅ WORKING PROJECTS API (without database)
 @app.get("/projects")
 def get_projects():
-    cursor.execute("SELECT * FROM projects")
-    return cursor.fetchall()
+    return [
+        {
+            "id": 1,
+            "title": "Portfolio Website",
+            "description": "A full-stack portfolio built using React and FastAPI.",
+            "technologies": "React, FastAPI, MySQL",
+            "github": "https://github.com/",
+            "live": "#"
+        },
+        {
+            "id": 2,
+            "title": "Face Emotion Recognition",
+            "description": "AI based project that detects human emotions using camera.",
+            "technologies": "Python, OpenCV, Machine Learning",
+            "github": "https://github.com/",
+            "live": "#"
+        }
+    ]
 
 
-# 👉 Save contact + Send Email
+# 👉 Contact API (temporary without DB)
 @app.post("/contact")
-async def save_contact(contact: Contact):
-    print("Received data:")
-    print(contact.name, contact.email, contact.message)
-
-    # ✅ Save to DB
-    query = "INSERT INTO contacts (name, email, message) VALUES (%s, %s, %s)"
-    values = (contact.name, contact.email, contact.message)
-
-    cursor.execute(query, values)
-    conn.commit()
-
-    # ✅ Send Email
-    message = MessageSchema(
-        subject="New Contact Form Submission",
-        recipients=["muraricharan2@gmail.com"],  # 👉 nee email pettu
-        body=f"""
-Name: {contact.name}
-Email: {contact.email}
-Message: {contact.message}
-        """,
-        subtype="plain"
-    )
-
-    fm = FastMail(conf)
-    await fm.send_message(message)
-
-    return {"message": "Contact saved & Email sent successfully ✅"}
-
-
-# 👉 Get all contacts
-@app.get("/contacts")
-def get_contacts():
-    cursor.execute("SELECT * FROM contacts")
-    return cursor.fetchall()
+def save_contact(contact: Contact):
+    print(contact)
+    return {"message": "Message received successfully"}
