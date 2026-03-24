@@ -6,7 +6,7 @@ function ProjectDetails() {
   const navigate = useNavigate();
 
   const projectData = {
-     1: {
+    "1": {
       title: "Portfolio Website",
       description:
         "A full-stack personal portfolio built using React and FastAPI with MySQL database integration.",
@@ -36,7 +36,7 @@ function ProjectDetails() {
       live: "#",
     },
 
-    2: {
+    "2": {
       title: "Face Emotion Recognition",
       description:
         "An AI-based project that detects human emotions using camera input.",
@@ -66,7 +66,7 @@ function ProjectDetails() {
     },
   };
 
-  const project = projectData[parseInt(id)];
+  const project = projectData[id];   // ✅ FIX: parseInt remove
 
   if (!project) return <p>Project not found</p>;
 
@@ -116,7 +116,6 @@ function ProjectDetails() {
           </a>
         </div>
 
-        {/* ✅ BACK BUTTON */}
         <button className="btn close" onClick={() => navigate("/")}>
           ⬅ Back
         </button>

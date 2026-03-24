@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 
-Modal.setAppElement("#root"); // important
+Modal.setAppElement("#root");
 
 function Projects() {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
 
-  const navigate = useNavigate(); // 👈 navigation
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/projects")
-      .then(res => res.json())
-      .then(data => setProjects(data))
-      .catch(err => console.log(err));
+    fetch("https://charan-portfolio-backend.onrender.com/projects")   // ✅ FIXED URL
+      .then((res) => res.json())
+      .then((data) => setProjects(data))
+      .catch((err) => console.log(err));
   }, []);
 
   return (
@@ -34,7 +34,6 @@ function Projects() {
         ))}
       </div>
 
-      {/* Modal */}
       {selectedProject && (
         <Modal
           isOpen={true}
@@ -49,14 +48,12 @@ function Projects() {
 
           {selectedProject.technologies && (
             <p>
-              <strong>Technologies:</strong>{" "}
-              {selectedProject.technologies}
+              <strong>Technologies:</strong> {selectedProject.technologies}
             </p>
           )}
 
           <br />
 
-          {/* Links */}
           {selectedProject.github && (
             <a
               href={selectedProject.github}
@@ -81,15 +78,10 @@ function Projects() {
 
           <br /><br />
 
-          {/* Buttons */}
-          <button onClick={() => setSelectedProject(null)}>
-            Close
-          </button>
+          <button onClick={() => setSelectedProject(null)}>Close</button>
 
           <button
-            onClick={() =>
-              navigate(`/project/${selectedProject.id}`)
-            }
+            onClick={() => navigate(`/project/${selectedProject.id}`)}
             style={{ marginLeft: "10px" }}
           >
             View Full Details
