@@ -11,7 +11,7 @@ function Projects() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://portfolio-backend-3lp6.onrender.com")   // ✅ FIXED URL
+    fetch("https://portfolio-backend-3lp6.onrender.com/projects")   // ✅ correct API
       .then((res) => res.json())
       .then((data) => setProjects(data))
       .catch((err) => console.log(err));
@@ -22,16 +22,17 @@ function Projects() {
       <h2>My Projects</h2>
 
       <div className="projects-grid">
-        {projects.map((project) => (
-          <div
-            key={project.id}
-            className="project-card"
-            onClick={() => setSelectedProject(project)}
-          >
-            <h3>{project.title}</h3>
-            <p>{project.description.substring(0, 60)}...</p>
-          </div>
-        ))}
+        {Array.isArray(projects) &&
+          projects.map((project) => (
+            <div
+              key={project.id}
+              className="project-card"
+              onClick={() => setSelectedProject(project)}
+            >
+              <h3>{project.title}</h3>
+              <p>{project.description.substring(0, 60)}...</p>
+            </div>
+          ))}
       </div>
 
       {selectedProject && (
