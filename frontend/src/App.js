@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
 import "./App.css";
@@ -29,7 +29,17 @@ function ScrollToTop() {
 
 // 🔥 Home Page Component
 function Home() {
+
+  const [message, setMessage] = useState("");
+
   useEffect(() => {
+
+    // 🔥 Backend connection
+    fetch("https://charan-portfolio-backend.onrender.com/")
+      .then((res) => res.json())
+      .then((data) => setMessage(data.message));
+
+    // 🔥 Scroll animation
     const sections = document.querySelectorAll("section");
 
     const observer = new IntersectionObserver(
@@ -48,7 +58,9 @@ function Home() {
     return () => {
       sections.forEach(section => observer.unobserve(section));
     };
+
   }, []);
+
 
   return (
     <>
@@ -57,6 +69,9 @@ function Home() {
       <header className="hero">
         <h1>Charan Portfolio</h1>
         <p>Full Stack Developer | React + FastAPI</p>
+
+        {/* 🔥 Backend message */}
+        <h3>{message}</h3>
       </header>
 
       <main>
@@ -80,7 +95,7 @@ function Home() {
 function App() {
   return (
     <Router>
-      <ScrollToTop /> {/* ✅ scroll fix */}
+      <ScrollToTop />
 
       <Routes>
         <Route path="/" element={<Home />} />
