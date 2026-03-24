@@ -4,10 +4,13 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-# ✅ CORS (React ki permission)
+# ✅ CORS FIX (very important for Vercel frontend)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "charan-portfolio-q59i.vercel.app",
+        "http://localhost:3000",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -20,14 +23,13 @@ class Contact(BaseModel):
     message: str
 
 
-# ---------- Routes ----------
-
+# ---------- Home Route ----------
 @app.get("/")
 def home():
     return {"message": "Hello Charan"}
 
 
-# ✅ WORKING PROJECTS API (without database)
+# ---------- Projects API ----------
 @app.get("/projects")
 def get_projects():
     return [
@@ -50,8 +52,8 @@ def get_projects():
     ]
 
 
-# 👉 Contact API (temporary without DB)
+# ---------- Contact API ----------
 @app.post("/contact")
 def save_contact(contact: Contact):
-    print(contact)
+    print("New Message:", contact)
     return {"message": "Message received successfully"}
