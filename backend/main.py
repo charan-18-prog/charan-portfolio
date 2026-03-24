@@ -4,11 +4,11 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-# ✅ CORS FIX (very important for Vercel frontend)
+# ✅ FINAL CORS FIX (live frontend + localhost)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "charan-portfolio-q59i.vercel.app",
+        "https://charan-portfolio-q59i.vercel.app",
         "http://localhost:3000",
     ],
     allow_credentials=True,
