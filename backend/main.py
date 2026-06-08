@@ -37,6 +37,7 @@ def get_projects():
             "id": 1,
             "title": "Portfolio Website",
             "description": "A full-stack portfolio built using React and FastAPI.",
+            "details": "This project includes a responsive UI, a contact form, and a project details pop-up powered by a FastAPI backend.",
             "technologies": "React, FastAPI, MySQL",
             "github": "https://github.com/",
             "live": "#"
@@ -45,7 +46,26 @@ def get_projects():
             "id": 2,
             "title": "Face Emotion Recognition",
             "description": "AI based project that detects human emotions using camera.",
+            "details": "The app captures video input, processes faces with OpenCV, and classifies emotions using a trained ML model.",
             "technologies": "Python, OpenCV, Machine Learning",
+            "github": "https://github.com/",
+            "live": "#"
+        },
+        {
+            "id": 3,
+            "title": "EduPortal",
+            "description": "A modern education portal built with React and FastAPI.",
+            "details": "EduPortal provides course management, student dashboards, and a fast backend API for secure data access using Python and FastAPI.",
+            "technologies": "React, FastAPI, Python",
+            "github": "https://github.com/",
+            "live": "#"
+        },
+        {
+            "id": 4,
+            "title": "Student Mental Health Analysis",
+            "description": "A machine learning system that analyzes and predicts student mental health.",
+            "details": "This project uses ML models to identify patterns in student data and deliver early mental health predictions and insights.",
+            "technologies": "Python, Machine Learning, Data Analysis",
             "github": "https://github.com/",
             "live": "#"
         }
