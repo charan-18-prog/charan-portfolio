@@ -7,7 +7,7 @@ function Education() {
         <h3>B.Tech (CSE(Data Science))</h3>
         <p>Annamacharya Institute of Tecnology and Sciences(rajampet), Andhra Pradesh</p>
         <p>2022 - 2026</p>
-        <p><strong>CGPA:</strong> 8.31</p> {/* change this */}
+        <p><strong>CGPA:</strong> 8.44</p>
       </div>
 
       <div className="education-card">

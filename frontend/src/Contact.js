@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000";
+
 function Contact() {
   const [form, setForm] = useState({
     name: "",
@@ -18,7 +20,7 @@ function Contact() {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://charan-portfolio-backend.onrender.com/contact", {
+      const res = await fetch(`${API_BASE_URL}/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

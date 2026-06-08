@@ -11,8 +11,7 @@ function AboutMe() {
         <div className="about-text">
           <h2>About Me</h2>
           <p>
-            Hi, I am <strong>Charan</strong>. I am learning Full Stack Development using React and FastAPI.
-            I enjoy building modern web applications and improving my skills daily.
+            Hello, I’m <strong>Charan</strong>, a dedicated Full Stack Developer focused on building modern web applications with React and FastAPI. I enjoy creating responsive, user-first experiences and continually advancing my skills through real-world development projects.
           </p>
         </div>
       </div>

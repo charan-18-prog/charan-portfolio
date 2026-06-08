@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000";
+
 Modal.setAppElement("#root");
 
 function Projects() {
@@ -8,13 +10,13 @@ function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
-    fetch("https://portfolio-backend-3lp6.onrender.com/projects")
+    fetch(`${API_BASE_URL}/projects`)
       .then((res) => res.json())
       .then((data) => {
         console.log("Projects data:", data);
         setProjects(data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error("Projects fetch error:", err));
   }, []);
 
   return (
@@ -50,39 +52,49 @@ function Projects() {
         >
           <h2>{selectedProject.title}</h2>
 
-          <p>{selectedProject.description}</p>
-
-          {selectedProject.technologies && (
+          <div className="project-details">
             <p>
-              <strong>Technologies:</strong> {selectedProject.technologies}
+              <strong>Overview:</strong> {selectedProject.description}
             </p>
-          )}
 
-          <br />
+            {selectedProject.details && (
+              <p>
+                <strong>More info:</strong> {selectedProject.details}
+              </p>
+            )}
 
-          {selectedProject.github && (
-            <a
-              href={selectedProject.github}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              🔗 GitHub
-            </a>
-          )}
+            {selectedProject.technologies && (
+              <p>
+                <strong>Technologies:</strong> {selectedProject.technologies}
+              </p>
+            )}
 
-          <br />
+            {selectedProject.github && (
+              <p>
+                <strong>GitHub:</strong>{" "}
+                <a
+                  href={selectedProject.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View repository
+                </a>
+              </p>
+            )}
 
-          {selectedProject.live && (
-            <a
-              href={selectedProject.live}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              🚀 Live Demo
-            </a>
-          )}
-
-          <br /><br />
+            {selectedProject.live && (
+              <p>
+                <strong>Live Demo:</strong>{" "}
+                <a
+                  href={selectedProject.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open live site
+                </a>
+              </p>
+            )}
+          </div>
 
           <button onClick={() => setSelectedProject(null)}>Close</button>
         </Modal>

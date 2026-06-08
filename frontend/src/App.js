@@ -14,6 +14,7 @@ import Strengths from "./Strengths";
 import Interests from "./Interests";
 import ProjectDetails from "./ProjectDetails";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000";
 
 // 🔥 Scroll to top on route change
 function ScrollToTop() {
@@ -35,9 +36,10 @@ function Home() {
   useEffect(() => {
 
     // 🔥 Backend connection
-    fetch("https://charan-portfolio-backend.onrender.com/")
+    fetch(`${API_BASE_URL}/`)
       .then((res) => res.json())
-      .then((data) => setMessage(data.message));
+      .then((data) => setMessage(data.message))
+      .catch((err) => console.error("Backend fetch error:", err));
 
     // 🔥 Scroll animation
     const sections = document.querySelectorAll("section");
