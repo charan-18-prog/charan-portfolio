@@ -14,71 +14,35 @@ function Contact() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ✅ UPDATED SUBMIT FUNCTION (live backend URL)
-const handleSubmit = async (e) => {
-<<<<<<< HEAD
-e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-try {
-await emailjs.send(
-"service_m0ojdmg",
-"template_x02ayd8",
-{
-name: form.name,
-email: form.email,
-message: form.message,
-},
-"cpIFMTvpJlajeEUeg"
-);
+    try {
+      await emailjs.send(
+        "service_m0ojdmg",
+        "template_x02ayd8",
+        {
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        },
+        "cpIFMTvpJlajeEUeg"
+      );
 
+      setSuccess("Message sent successfully ✅");
 
-setSuccess("Message sent successfully ✅");
+      setForm({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error(error);
+      setSuccess("Error sending message ❌");
+    }
 
-setForm({
-  name: "",
-  email: "",
-  message: "",
-});
-
-
-} catch (error) {
-console.error(error);
-setSuccess("Error sending message ❌");
-}
-
-setTimeout(() => setSuccess(null), 3000);
-};
-
-=======
-  e.preventDefault();
-
-  try {
-    await emailjs.send(
-      "service_m0ojdmg",
-      "template_x02ayd8",
-      {
-        name: form.name,
-        email: form.email,
-        message: form.message,
-      },
-      "cpIFMTvpJlajeEUeg"
-    );
-
-    setSuccess("Message sent successfully ✅");
-
-    setForm({
-      name: "",
-      email: "",
-      message: "",
-    });
-  } catch (error) {
-    console.error(error);
-    setSuccess("Error sending message ❌");
-  }
-
-  setTimeout(() => setSuccess(null), 3000);
-};
->>>>>>> 3a8c1a0 (Add EmailJS contact form)
+    setTimeout(() => setSuccess(null), 3000);
+  };
 
   return (
     <section id="contact" className="contact">
