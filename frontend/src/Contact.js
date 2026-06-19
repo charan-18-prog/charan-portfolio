@@ -1,8 +1,6 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000";
-
 function Contact() {
   const [form, setForm] = useState({
     name: "",
@@ -18,6 +16,7 @@ function Contact() {
 
   // ✅ UPDATED SUBMIT FUNCTION (live backend URL)
 const handleSubmit = async (e) => {
+<<<<<<< HEAD
 e.preventDefault();
 
 try {
@@ -50,6 +49,36 @@ setSuccess("Error sending message ❌");
 setTimeout(() => setSuccess(null), 3000);
 };
 
+=======
+  e.preventDefault();
+
+  try {
+    await emailjs.send(
+      "service_m0ojdmg",
+      "template_x02ayd8",
+      {
+        name: form.name,
+        email: form.email,
+        message: form.message,
+      },
+      "cpIFMTvpJlajeEUeg"
+    );
+
+    setSuccess("Message sent successfully ✅");
+
+    setForm({
+      name: "",
+      email: "",
+      message: "",
+    });
+  } catch (error) {
+    console.error(error);
+    setSuccess("Error sending message ❌");
+  }
+
+  setTimeout(() => setSuccess(null), 3000);
+};
+>>>>>>> 3a8c1a0 (Add EmailJS contact form)
 
   return (
     <section id="contact" className="contact">
