@@ -1,4 +1,5 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000";
 
@@ -16,31 +17,39 @@ function Contact() {
   };
 
   // ✅ UPDATED SUBMIT FUNCTION (live backend URL)
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+e.preventDefault();
 
-    try {
-      const res = await fetch(`${API_BASE_URL}/contact`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
+try {
+await emailjs.send(
+"service_m0ojdmg",
+"template_x02ayd8",
+{
+name: form.name,
+email: form.email,
+message: form.message,
+},
+"cpIFMTvpJlajeEUeg"
+);
 
-      if (res.ok) {
-        setSuccess("Message sent successfully ✅");
-        setForm({ name: "", email: "", message: "" });
-      } else {
-        setSuccess("Error sending message ❌");
-      }
 
-      setTimeout(() => setSuccess(null), 3000);
-    } catch (error) {
-      console.error(error);
-      setSuccess("Server error ❌");
-    }
-  };
+setSuccess("Message sent successfully ✅");
+
+setForm({
+  name: "",
+  email: "",
+  message: "",
+});
+
+
+} catch (error) {
+console.error(error);
+setSuccess("Error sending message ❌");
+}
+
+setTimeout(() => setSuccess(null), 3000);
+};
+
 
   return (
     <section id="contact" className="contact">
