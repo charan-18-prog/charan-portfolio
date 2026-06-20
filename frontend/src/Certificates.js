@@ -1,17 +1,20 @@
 function Certificates() {
   const certs = [
     {
-      title: "Internship on Python Full Stack",
-      platform: "Pantech eLearning",
+      title: "Internship on Advanced Data Science",
+      platform: "APSSDC",
+      duration: "February 2024 – May 2024"
     },
     {
-      title: "Internship on Advanced Data Science",
-      platform: " APSSDC",
+      title: "Internship on Python Full Stack",
+      platform: "Pantech eLearning",
+      duration: "March 2025 – May 2025"
     },
     {
       title: "Google Cloud Computing",
       platform: "Online",
-    },
+      duration: "September 2025 – November 2025"
+    }
   ];
 
   return (
@@ -22,7 +25,8 @@ function Certificates() {
         {certs.map((cert, index) => (
           <div key={index} className="cert-card">
             <h3>{cert.title}</h3>
-            <p>{cert.platform}</p>
+            <p><strong>Platform:</strong> {cert.platform}</p>
+            <p><strong>Duration:</strong> {cert.duration}</p>
           </div>
         ))}
       </div>
